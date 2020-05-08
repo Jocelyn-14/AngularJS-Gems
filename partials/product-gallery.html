@@ -1,0 +1,8 @@
+<div class="img-wrap">
+    <img ng-src="{{product.images[gallery.current].url}}">
+</div>
+<ul class="img-thumbnails clearfix">
+    <li class="small-image thumbnails" ng-repeat="image in product.images">
+        <img ng-src="{{image.url}}" ng-click="gallery .setCurrrent(image.number)" alt="">
+    </li>
+</ul>

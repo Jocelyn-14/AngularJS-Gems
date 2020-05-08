@@ -1,0 +1,65 @@
+<div class="btn-group" role="group" aria-label="Basic example">
+    <div float:center >
+        <section ng-controller="PanelController as panel">
+                <ul class="nav nav-pills">
+                    <li ng-class="{ active: panel.isSelected(1)}"> 
+                        <button type="button" class="btn btn-secondary"><a href ng-click="panel.selectTab(1)">Description</a></button>
+                    </li>
+                    <li ng-class="{ active: panel.isSelected(2)}"> 
+                        <button type="button" class="btn btn-secondary"><a href ng-click="panel.selectTab(2)">Specifications</a></button>
+                    </li>
+                    <li ng-class="{ active: panel.isSelected(3)}"> 
+                        <button type="button" class="btn btn-secondary"><a href ng-click="panel.selectTab(3)">Reviews</a></button>
+                    </li>
+                    <li>
+                        <button ng-show="product.canPurchase" class="btn btn-secondary" >Add to Cart </button>
+                    </li>
+                </ul>
+            
+            <div class="panel" ng-show="panel.isSelected(1)">
+                    <h4>Description</h4>
+                    <p>{{product.description}}</p>
+            </div>
+            <div class="panel" ng-show="panel.isSelected(2)">
+                    <h4>Specifications</h4>
+                    <blockquote ng-repeat="spec in product.specs">
+                        <b>faces: {{spec.faces}}</b>
+                        <b>level rarity: {{spec.rarity}}</b>
+                        <b>level shine: {{spec.shine}}</b>
+                    </blockquote>
+            </div>
+            <div class="panel" ng-show="panel.isSelected(3)">
+                    <h4>Reviews</h4>
+                    <blockquote ng-repeat="review in product.reviews">
+                        <b>Stars: {{review.stars}}</b>
+                        {{review.body}}
+                        <cite>by: {{review.author}}</cite>
+                    </blockquote>
+                <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+                        <blockquote>
+                            <b>Stars: {{reviewCtrl.review.stars}}</b>
+                            {{reviewCtrl.review.body}}
+                            <cite>by: {{reviewCtrl.review.author}}</cite>
+                        </blockquote>
+                        <label>stars</label>
+                        <select class="form-control" ng-model="reviewCtrl.review.stars" required>
+                            <option value="1">1 star</option>
+                            <option value="2">2 stars</option>
+                            <option value="3">3 stars</option>
+                            <option value="4">4 stars</option>
+                            <option value="5">5 stars</option>
+                        </select>
+                        <br>
+                        <label>comment:</label>
+                        <textarea class="form-control" rows="2" spellcheck="false" name="body" ng-model="reviewCtrl.review.body" required></textarea>
+                        <lebel>by:</lebel>
+                        <br>
+                        <input class="form-control-plaintext" name="author" ng-model="reviewCtrl.review.author" type="email" class="ng-pristine ng-invalid" class="ng-pristine ng-valid" required />
+
+                        <div>reviewForm is {{reviewForm.$valid}} </div>
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
